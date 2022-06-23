@@ -26,4 +26,28 @@ resource "aws_s3_bucket" "terraform_state_bucket" {
   bucket = "cloud-hippie-terraform-state-bucket"
 }
 
+resource "aws_s3_bucket" "demo_bucket" {
+  bucket = "cloud-hippie-demo-bucket"
+}
 
+resource "aws_s3_bucket" "templates_bucket" {
+  bucket = "cloud-hippie-templates-bucket"
+}
+
+resource "aws_iam_role" "iam_role" {
+  name = "cloud-hippie-iam-role"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Effect": "Allow"
+    }
+  ]
+}
+EOF
+}
